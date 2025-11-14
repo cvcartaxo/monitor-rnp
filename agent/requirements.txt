@@ -1,0 +1,5 @@
+requests==2.31.0
+influxdb-client==1.36.1
+ping3==4.0.4
+schedule==1.2.0
+python-multipart==0.0.6
