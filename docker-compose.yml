@@ -9,15 +9,23 @@ services:
       - DB_HOST=influxdb
       - DB_PORT=8086
       - DB_NAME=monitoring
-    volumes:
-      - ./agent:/app
+      - INFLUXDB_TOKEN=my-super-secret-token
+      - INFLUXDB_ORG=monitoring-org
+      - INFLUXDB_BUCKET=monitoring
     depends_on:
-      - influxdb
+      influxdb:
+        condition: service_healthy
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://google.com', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
-  # Banco de Dados - InfluxDB (otimizado para time series)
+  # Banco de dados InfluxDB
   influxdb:
-    image: influxdb:2.7
+    build: ./database
     container_name: influxdb
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
@@ -31,23 +39,38 @@ services:
     volumes:
       - influxdb_data:/var/lib/influxdb2
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   # Grafana para Dashboard
   grafana:
-    image: grafana/grafana:latest
+    build: ./grafana
     container_name: grafana
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
     ports:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
     depends_on:
-      - influxdb
+      influxdb:
+        condition: service_healthy
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
 volumes:
   influxdb_data:
+    driver: local
   grafana_data:
+    driver: local

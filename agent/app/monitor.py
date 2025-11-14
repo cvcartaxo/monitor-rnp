@@ -1,5 +1,5 @@
-import requests
 import time
+import requests
 from ping3 import ping
 import logging
 
@@ -43,7 +43,6 @@ class NetworkMonitor:
         start_time = time.time()
         
         try:
-            # Adiciona protocolo se não existir
             if not url.startswith(('http://', 'https://')):
                 url = f'https://{url}'
             
