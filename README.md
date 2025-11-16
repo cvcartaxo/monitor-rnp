@@ -1,4 +1,4 @@
-# Projeto de Monitoramento — Docker + Nginx + InfluxDB + Grafana + Agente python
+## Projeto de Monitoramento: Docker + Nginx + InfluxDB + Grafana + Agente python
 
 Este repositório contém uma stack completa para monitoramento simples **Docker Compose**, incluindo:
 
@@ -7,7 +7,7 @@ Este repositório contém uma stack completa para monitoramento simples **Docker
 - **Agente de Monitoramento** (ping + Python + HTTP checker)
 - **Grafana** (dashboard)
 
-## 🚀 Requisitos
+##  Requisitos
 
 Antes de iniciar, certifique-se de ter instalado:
 
@@ -48,9 +48,9 @@ docker-compose down && docker system prune -af && docker volume prune -f
 docker-compose build --no-cache && docker-compose up -d
 ```
 
-## 🚀 Como Acessar a Aplicação
+##  Como Acessar a Aplicação
 
-### 🔐 Credenciais de Acesso
+### Credenciais de Acesso
 
 **URL:**  
 https://localhost  
