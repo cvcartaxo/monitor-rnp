@@ -40,7 +40,7 @@ class MonitoringAgent:
             logger.info("Iniciando ciclo de monitoramento")
             
             # Teste de Ping
-            ping_targets = ["8.8.8.8", "1.1.1.1", "200.160.2.3"]
+            ping_targets = ["google.com", "youtube.com", "rnp.br"]
             for target in ping_targets:
                 ping_results = self.monitor.ping_test(target)
                 self.db.write_ping_data(ping_results)
