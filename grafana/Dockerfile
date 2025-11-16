@@ -1,8 +1,8 @@
 FROM grafana/grafana:latest
 
 # Variáveis de ambiente
-ENV GF_SECURITY_ADMIN_USER=admin
-ENV GF_SECURITY_ADMIN_PASSWORD=admin123
+ENV GF_SECURITY_ADMIN_USER=admin-rnp
+ENV GF_SECURITY_ADMIN_PASSWORD=9ZdTiIlEmrKn7TG5
 ENV GF_INSTALL_PLUGINS="grafana-clock-panel,grafana-piechart-panel,grafana-worldmap-panel,btplc-status-dot-panel,volkovlabs-variable-panel"
 
 
